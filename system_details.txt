@@ -1,0 +1,17 @@
+OS: Ubuntu 18.04.4 LTS x86_64 
+Host: GL63 8RD REV:1.0 
+Kernel: 4.15.0-96-generic 
+Uptime: 7 hours, 41 mins 
+Packages: 3425 
+Shell: bash 4.4.20 
+Resolution: 1920x1080 
+DE: GNOME 3.28.4 
+WM: GNOME Shell 
+WM Theme: Adwaita 
+Theme: Adwaita [GTK2/3] 
+Icons: Adwaita [GTK2/3] 
+Terminal: gnome-terminal 
+CPU: Intel i7-8750H (12) @ 2.460GHz 
+GPU: Intel Device 3e9b 
+GPU: NVIDIA GeForce GTX 1050 Ti Mobi 
+Memory: 2844MiB / 7820MiB 
