@@ -28,18 +28,22 @@ class SentimentNetwork:
 
     def pre_process_data(self, reviews, labels):
         
-        review_vocab = set([word for word in review.split(' ') for review in reviews])
+        review_vocab = set()
         # TODO: populate review_vocab with all of the words in the given reviews
         #       Remember to split reviews into individual words 
         #       using "split(' ')" instead of "split()".
-        
+        for review in reviews:
+            review_words = review.split(' ')
+            for word in review_words:
+                review_vocab.add(word)
         # Convert the vocabulary set to a list so we can access words via indices
         self.review_vocab = list(review_vocab)
         
-        label_vocab = set([label for label in labels])
+        label_vocab = set()
         # TODO: populate label_vocab with all of the words in the given labels.
         #       There is no need to split the labels because each one is a single word.
-        
+        for label in labels:
+            label_vocab.add(label)
         # Convert the label vocabulary set to a list so we can access labels via indices
         self.label_vocab = list(label_vocab)
         
@@ -138,8 +142,8 @@ class SentimentNetwork:
             #       Do not use an activation function for the hidden layer,
             #       but use the sigmoid activation function for the output layer.
             self.update_input_layer(review)
-            hidden_layer_input = np.matmul(self.layer_0, self.weights_0_1)
-            output = self.sigmoid(np.matmul(hidden_layer_input, self.weights_1_2))
+            hidden_layer_input = np.dot(self.layer_0, self.weights_0_1)
+            output = self.sigmoid(np.dot(hidden_layer_input, self.weights_1_2))
             # TODO: Implement the back propagation pass here. 
             #       That means calculate the error for the forward pass's prediction
             #       and update the weights in the network according to their
@@ -149,11 +153,11 @@ class SentimentNetwork:
             error = output - self.get_target_for_label(label)
             output_error_term = error * self.sigmoid_output_2_derivative(output)
             
-            hidden_error = np.matmul(output_error_term, self.weights_1_2.T)
+            hidden_error = np.dot(output_error_term, self.weights_1_2.T)
             hidden_error_term = hidden_error 
             
-            self.weights_0_1 -= self.learning_rate * np.matmul(self.layer_0.T, hidden_error_term)
-            self.weights_1_2 -= self.learning_rate * np.matmul(hidden_layer_input.T, output_error_term)
+            self.weights_1_2 -= self.learning_rate * np.dot(hidden_layer_input.T, output_error_term)
+            self.weights_0_1 -= self.learning_rate * np.dot(self.layer_0.T, hidden_error_term)
             
             # TODO: Keep track of correct predictions. To determine if the prediction was
             #       correct, check that the absolute value of the output error 
@@ -221,7 +225,7 @@ class SentimentNetwork:
         #       Return `POSITIVE` for predictions greater-than-or-equal-to `0.5`, 
         #       and `NEGATIVE` otherwise.
         self.update_input_layer(review.lower())
-        hidden_layer_input = np.matmul(self.layer_0, self.weights_0_1)
-        hidden_layer_output = np.matmul(hidden_layer_input, self.weights_1_2)
+        hidden_layer_input = np.dot(self.layer_0, self.weights_0_1)
+        hidden_layer_output = np.dot(hidden_layer_input, self.weights_1_2)
         output = self.sigmoid(hidden_layer_output)
         return 'POSITIVE' if output >= 0.5 else 'NEGATIVE'
