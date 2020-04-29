@@ -1,6 +1,7 @@
 import time
 import sys
 import numpy as np
+from collections import Counter
 
 # Encapsulate our neural network in a class
 class SentimentNetwork:
